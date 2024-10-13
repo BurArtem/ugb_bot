@@ -1,49 +1,112 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Управление финансами - Прототип приложения</title>
+    <title>Управління фінансами - Прототип додатка</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #ff4081;
+            --secondary-color: #1e1e2e;
+            --accent-color: #66ff99;
+            --font-family: 'Roboto', sans-serif;
+        }
+
         body {
-            background: linear-gradient(135deg, #2b5876, #4e4376);
+            background: linear-gradient(135deg, #4e54c8, #8f94fb);
             color: #ffffff;
-            font-family: 'Roboto', sans-serif;
+            font-family: var(--font-family);
             overflow-x: hidden;
             transition: background 0.5s ease;
         }
+
+        /* Neumorphism button style */
+        button, input {
+            background: #2b5876;
+            border-radius: 15px;
+            box-shadow: 9px 9px 16px #1e3d52, -9px -9px 16px #3e769a;
+            border: none;
+            padding: 15px 30px;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            box-shadow: 3px 3px 6px #1e3d52, -3px -3px 6px #3e769a;
+            transform: scale(1.05);
+        }
+
+        /* Button hover effect */
+        button {
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::after {
+            content: '';
+            position: absolute;
+            width: 300%;
+            height: 300%;
+            background: rgba(255, 255, 255, 0.1);
+            top: -100%;
+            left: -100%;
+            transition: all 0.3s ease;
+        }
+
+        button:hover::after {
+            top: 0;
+            left: 0;
+        }
+
+        .background-img {
+            background: url('https://source.unsplash.com/random/1600x900') no-repeat center center fixed;
+            background-size: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.75;
+        }
+
         .container {
             margin-top: 50px;
             max-width: 600px;
         }
+
         .card {
             border-radius: 20px;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
             padding: 25px;
-            background: rgba(41, 41, 61, 0.95);
+            background: rgba(30, 30, 46, 0.95);
             backdrop-filter: blur(15px);
             color: #ffffff;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             opacity: 0;
         }
+
         .card.fade-in {
             animation: fadeIn 1s forwards;
         }
+
         .card:hover {
             transform: translateY(-8px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
         }
+
         .card-title {
             font-weight: bold;
             font-size: 2.2em;
             margin-bottom: 25px;
             text-align: center;
         }
+
         .btn-main {
-            background: linear-gradient(135deg, #ff8c00, #ff2a6d);
+            background: linear-gradient(135deg, #ff9966, #ff5e62);
             color: white;
             font-size: 1.3em;
             border-radius: 50px;
@@ -53,23 +116,11 @@
             position: relative;
             overflow: hidden;
         }
-        .btn-main::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
+
         .btn-main:hover::after {
             opacity: 1;
         }
-        .btn-main:active {
-            transform: scale(0.97);
-        }
+
         .btn-back {
             background: linear-gradient(135deg, #007bff, #00d4ff);
             color: white;
@@ -80,11 +131,13 @@
             transition: all 0.3s ease;
             margin-top: 20px;
         }
+
         .btn-back:hover {
             background: linear-gradient(135deg, #00d4ff, #007bff);
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
         }
+
         .navbar {
             background: rgba(51, 51, 51, 0.85);
             padding: 15px;
@@ -92,20 +145,24 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             transition: background-color 0.5s ease;
         }
+
         .navbar-brand {
             color: white;
             font-size: 1.8em;
             font-weight: bold;
         }
+
         .navbar-brand:hover {
             color: #e0e0e0;
         }
+
         .card-text {
             font-size: 1.3em;
             color: #cccccc;
             margin-bottom: 30px;
             text-align: center;
         }
+
         .interactive-start {
             display: flex;
             justify-content: center;
@@ -113,6 +170,7 @@
             height: 100vh;
             text-align: center;
         }
+
         .role-selection {
             background: rgba(41, 41, 61, 0.95);
             border-radius: 20px;
@@ -121,13 +179,13 @@
             max-width: 400px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             backdrop-filter: blur(15px);
-            opacity: 0;
-            animation: fadeIn 1s forwards 0.5s;
         }
+
         .role-selection:hover {
             transform: scale(1.06);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
         }
+
         .role-selection button {
             background: linear-gradient(135deg, #007bff, #00d4ff);
             color: white;
@@ -139,6 +197,7 @@
             position: relative;
             overflow: hidden;
         }
+
         .role-selection button::before {
             content: '';
             position: absolute;
@@ -149,17 +208,21 @@
             background: rgba(255, 255, 255, 0.2);
             transition: all 0.5s;
         }
+
         .role-selection button:hover::before {
             left: 100%;
         }
+
         .role-selection button:hover {
             background: linear-gradient(135deg, #00d4ff, #007bff);
             transform: scale(1.1);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
         }
+
         .role-selection button:active {
             transform: scale(0.95);
         }
+
         .faq-section {
             margin-top: 25px;
             text-align: left;
@@ -170,9 +233,11 @@
             backdrop-filter: blur(15px);
             transition: transform 0.3s ease;
         }
+
         .faq-section:hover {
             transform: translateY(-5px);
         }
+
         .faq-question {
             background-color: #3d3d5c;
             border: none;
@@ -184,29 +249,36 @@
             border-radius: 10px;
             transition: background-color 0.3s, transform 0.2s;
         }
+
         .faq-question:hover {
             background-color: #4e4e73;
             transform: translateX(12px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
+
         .voice-control {
             margin-top: 25px;
             text-align: center;
         }
+
         .animated-icon {
             font-size: 3.5em;
-            color: #66ff99;
+            color: var(--accent-color);
             animation: pulse 1.5s infinite;
         }
+
         .input-group {
             margin-top: 25px;
         }
+
         .animated-card {
             animation: bounceIn 0.9s ease;
         }
+
         .navbar-icon {
             margin-right: 12px;
         }
+
         .loading-overlay {
             display: none;
             position: fixed;
@@ -221,15 +293,17 @@
             color: #ffffff;
             font-size: 1.7em;
         }
+
         .loading-overlay .spinner {
             margin-top: 25px;
             width: 3.5rem;
             height: 3.5rem;
             border: 6px solid #ffffff;
-            border-top: 6px solid #66ff99;
+            border-top: 6px solid var(--accent-color);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
+
         @keyframes pulse {
             0%, 100% {
                 transform: scale(1);
@@ -240,10 +314,12 @@
                 opacity: 0.75;
             }
         }
+
         @keyframes fadeIn {
             0% { opacity: 0; }
             100% { opacity: 1; }
         }
+
         @keyframes bounceIn {
             0% {
                 transform: scale(0.85);
@@ -258,6 +334,7 @@
                 opacity: 1;
             }
         }
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -272,62 +349,81 @@
     </nav>
 
     <div class="loading-overlay" id="loading-overlay">
-        <div>Загрузка...</div>
+        <div>Завантаження...</div>
         <div class="spinner"></div>
     </div>
 
-    <!-- Интерактивный старт с выбором роли -->
+    <!-- Інтерактивний старт з вибором ролі -->
     <div class="interactive-start">
-        <div class="role-selection animated-card">
+        <div class="role-selection">
             <i class="fas fa-user-circle animated-icon"></i>
-            <h3>Выберите вашу роль</h3>
-            <button onclick="selectRole('client')">Клиент</button>
+            <h3>Оберіть свою роль</h3>
+            <button onclick="selectRole('client')">Клієнт</button>
             <button onclick="selectRole('consultant')">Консультант</button>
         </div>
     </div>
 
-    <!-- Основной интерфейс для клиента -->
+    <!-- Основний інтерфейс для клієнта -->
     <div class="container" id="client-interface" style="display: none;">
         <div class="card text-center fade-in">
             <div class="card-body">
-                <h5 class="card-title">Добро пожаловать в FinControl!</h5>
-                <p class="card-text">Проверьте баланс, откройте депозит или свяжитесь с консультантом прямо сейчас.</p>
+                <h5 class="card-title">Ласкаво просимо до FinControl!</h5>
+                <p class="card-text">Перевірте баланс, відкрийте депозит або зв'яжіться з консультантом прямо зараз.</p>
                 <div class="d-grid gap-4">
-                    <button class="btn btn-main" onclick="showLoading(); setTimeout(showBalance, 1000);"><i class="fas fa-wallet"></i> Баланс</button>
-                    <button class="btn btn-main" onclick="showLoading(); setTimeout(openDeposit, 1000);"><i class="fas fa-piggy-bank"></i> Депозит</button>
-                    <button class="btn btn-main" onclick="showLoading(); setTimeout(contactConsultant, 1000);"><i class="fas fa-headset"></i> Консультант</button>
+                    <button class="btn btn-main" onclick="showLoading(); setTimeout(showBalance, 1000);">
+                        <i class="fas fa-wallet"></i> Баланс 💰
+                    </button>
+                    <button class="btn btn-main" onclick="showLoading(); setTimeout(openDeposit, 1000);">
+                        <i class="fas fa-piggy-bank"></i> Депозит 🏦
+                    </button>
+                    <button class="btn btn-main" onclick="showLoading(); setTimeout(contactConsultant, 1000);">
+                        <i class="fas fa-headset"></i> Консультант 🎧
+                    </button>
                 </div>
                 <div class="faq-section">
-                    <h5>Часто задаваемые вопросы</h5>
-                    <button class="faq-question" onclick="showLoading(); setTimeout(() => showFAQ('Как проверить баланс?'), 1000);">Как проверить баланс?</button>
-                    <button class="faq-question" onclick="showLoading(); setTimeout(() => showFAQ('Как открыть депозит?'), 1000);">Как открыть депозит?</button>
-                    <button class="faq-question" onclick="showLoading(); setTimeout(() => showFAQ('Как связаться с консультантом?'), 1000);">Как связаться с консультантом?</button>
+                    <h5>Часті запитання</h5>
+                    <button class="faq-question" onclick="showLoading(); setTimeout(() => showFAQ('Як перевірити баланс?'), 1000);">
+                        Як перевірити баланс?
+                    </button>
+                    <button class="faq-question" onclick="showLoading(); setTimeout(() => showFAQ('Як відкрити депозит?'), 1000);">
+                        Як відкрити депозит?
+                    </button>
+                    <button class="faq-question" onclick="showLoading(); setTimeout(() => showFAQ('Як зв'язатися з консультантом?'), 1000);">
+                        Як зв'язатися з консультантом?
+                    </button>
                 </div>
                 <div class="voice-control">
-                    <button class="btn btn-main" onclick="showLoading(); setTimeout(startVoiceControl, 1000);"><i class="fas fa-microphone"></i> Голосовое управление</button>
-                </div>
+                    <button class="btn btn-main" onclick="showLoading(); setTimeout(function() { startVoiceControl(); }, 1000);">
+                        <i class="fas fa-microphone"></i> Голосове управління 🎤
+                    </button>
+                </div> <!-- Закрывающий тег для voice-control -->
                 <div class="chat-section">
-                    <h5>Виртуальный Ассистент</h5>
+                    <h5>Віртуальний Асистент</h5>
                     <div class="input-group mb-3">
-                        <input type="text" id="chat-input" class="form-control" placeholder="Введите ваш вопрос...">
-                        <button class="btn btn-main" onclick="showLoading(); setTimeout(sendToAI, 1000);"><i class="fas fa-paper-plane"></i> Отправить</button>
+                        <input type="text" id="chat-input" class="form-control" placeholder="Введіть своє питання...">
+                        <button class="btn btn-main" onclick="showLoading(); setTimeout(sendToAI, 1000);">
+                            <i class="fas fa-paper-plane"></i> Відправити
+                        </button>
                     </div>
                     <div id="chat-response" class="card-text"></div>
                 </div>
-                <button class="btn btn-back" onclick="goBack()"><i class="fas fa-arrow-left"></i> Назад</button>
+                <button class="btn btn-back" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i> Назад
+                </button>
             </div>
         </div>
     </div>
+    
 
-    <!-- Основной интерфейс для консультанта -->
+    <!-- Основний інтерфейс для консультанта -->
     <div class="container" id="consultant-interface" style="display: none;">
         <div class="card text-center fade-in">
             <div class="card-body">
-                <h5 class="card-title">Здравствуйте, Консультант!</h5>
-                <p class="card-text">Здесь вы можете найти информацию о клиентах и помочь им решить их вопросы.</p>
+                <h5 class="card-title">Вітаємо, Консультанте!</h5>
+                <p class="card-text">Тут ви можете знайти інформацію про клієнтів і допомогти вирішити їхні питання.</p>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Введите имя клиента для поиска...">
-                    <button class="btn btn-main" onclick="showLoading(); setTimeout(findClient, 1000);"><i class="fas fa-search"></i> Найти клиента</button>
+                    <input type="text" class="form-control" placeholder="Введіть ім'я клієнта для пошуку...">
+                    <button class="btn btn-main" onclick="showLoading(); setTimeout(findClient, 1000);"><i class="fas fa-search"></i> Знайти клієнта 🔍</button>
                 </div>
                 <button class="btn btn-back" onclick="goBack()"><i class="fas fa-arrow-left"></i> Назад</button>
             </div>
@@ -335,58 +431,61 @@
     </div>
 
     <script>
+        function startVoiceControl() {
+            alert('Голосове управління активовано. Ви можете говорити!');
+            // Тут можно добавить логику для активации голосового управления
+        }
+    
         function selectRole(role) {
-            
+            document.querySelector('.interactive-start').style.display = 'none'; // Сховати початковий екран
+    
             if (role === 'client') {
                 const clientInterface = document.getElementById('client-interface');
-                clientInterface.style.display = 'block';
+                clientInterface.style.display = 'block'; // Показати інтерфейс клієнта
             } else if (role === 'consultant') {
                 const consultantInterface = document.getElementById('consultant-interface');
-                consultantInterface.style.display = 'block';
+                consultantInterface.style.display = 'block'; // Показати інтерфейс консультанта
             }
         }
-
+    
         function goBack() {
             document.getElementById('client-interface').style.display = 'none';
             document.getElementById('consultant-interface').style.display = 'none';
-            document.querySelector('.interactive-start').style.display = 'flex';
+            document.querySelector('.interactive-start').style.display = 'flex'; // Повернути початковий екран
         }
-
+    
         function showLoading() {
             document.getElementById('loading-overlay').style.display = 'flex';
             setTimeout(() => {
                 document.getElementById('loading-overlay').style.display = 'none';
             }, 1000);
         }
-
+    
         function showBalance() {
-            alert('Ваш баланс: 1000 у.е.');
+            alert('Ваш баланс: 1000 у.о.');
         }
-
+    
         function openDeposit() {
-            alert('Открытие депозита успешно выполнено.');
+            alert('Відкриття депозиту успішно виконано.');
         }
-
+    
         function contactConsultant() {
-            alert('Связь с консультантом установлена. Пожалуйста, ожидайте.');
+            alert('Зв\'язок із консультантом встановлено. Будь ласка, очікуйте.');
         }
-
+    
         function showFAQ(question) {
             alert(question);
         }
-
-        function startVoiceControl() {
-            alert('Голосовое управление активировано.');
-        }
-
+    
         function sendToAI() {
             const question = document.getElementById('chat-input').value;
-            document.getElementById('chat-response').innerText = `Ответ на ваш вопрос: ${question}`;
+            document.getElementById('chat-response').innerText = `Відповідь на ваше питання: ${question}`;
         }
-
+    
         function findClient() {
-            alert('Информация о клиенте найдена.');
+            alert('Інформація про клієнта знайдена.');
         }
     </script>
+    
 </body>
 </html>
