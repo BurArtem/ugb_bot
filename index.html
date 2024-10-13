@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приложение для управления финансами</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+            max-width: 600px;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-title {
+            font-weight: bold;
+        }
+        .btn-main {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-main:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Добро пожаловать в приложение управления финансами!</h5>
+                <p class="card-text">Здесь вы можете проверить баланс, открыть депозит или узнать больше о продуктах банка.</p>
+                <div class="d-grid gap-3">
+                    <button class="btn btn-main" onclick="showBalance()"><i class="fas fa-wallet"></i> Показать баланс</button>
+                    <button class="btn btn-main" onclick="openDeposit()"><i class="fas fa-piggy-bank"></i> Открыть депозит</button>
+                    <button class="btn btn-main" onclick="contactConsultant()"><i class="fas fa-headset"></i> Связаться с консультантом</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showBalance() {
+            alert("Ваш баланс: 12 500 грн.");
+        }
+
+        function openDeposit() {
+            alert("Чтобы открыть депозит, свяжитесь с консультантом.");
+        }
+
+        function contactConsultant() {
+            alert("Консультант свяжется с вами в ближайшее время.");
+        }
+    </script>
+</body>
+</html>
