@@ -339,6 +339,36 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Адаптивные стили для мобильных устройств */
+        @media (max-width: 768px) {
+            .container {
+                max-width: 100%;
+                padding: 0 15px;
+            }
+
+            .card {
+                padding: 15px;
+            }
+
+            .card-title {
+                font-size: 1.8em;
+            }
+
+            .btn-main {
+                font-size: 1.1em;
+                padding: 10px 20px;
+            }
+
+            .btn-back {
+                font-size: 0.9em;
+                padding: 8px 18px;
+            }
+
+            .role-selection {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -396,7 +426,7 @@
                     <button class="btn btn-main" onclick="showLoading(); setTimeout(function() { startVoiceControl(); }, 1000);">
                         <i class="fas fa-microphone"></i> Голосове управління 🎤
                     </button>
-                </div> <!-- Закрывающий тег для voice-control -->
+                </div>
                 <div class="chat-section">
                     <h5>Віртуальний Асистент</h5>
                     <div class="input-group mb-3">
@@ -413,7 +443,6 @@
             </div>
         </div>
     </div>
-    
 
     <!-- Основний інтерфейс для консультанта -->
     <div class="container" id="consultant-interface" style="display: none;">
@@ -433,59 +462,55 @@
     <script>
         function startVoiceControl() {
             alert('Голосове управління активовано. Ви можете говорити!');
-            // Тут можно добавить логику для активации голосового управления
         }
-    
+
         function selectRole(role) {
-            document.querySelector('.interactive-start').style.display = 'none'; // Сховати початковий екран
-    
+            document.querySelector('.interactive-start').style.display = 'none';
+
             if (role === 'client') {
-                const clientInterface = document.getElementById('client-interface');
-                clientInterface.style.display = 'block'; // Показати інтерфейс клієнта
+                document.getElementById('client-interface').style.display = 'block';
             } else if (role === 'consultant') {
-                const consultantInterface = document.getElementById('consultant-interface');
-                consultantInterface.style.display = 'block'; // Показати інтерфейс консультанта
+                document.getElementById('consultant-interface').style.display = 'block';
             }
         }
-    
+
         function goBack() {
             document.getElementById('client-interface').style.display = 'none';
             document.getElementById('consultant-interface').style.display = 'none';
-            document.querySelector('.interactive-start').style.display = 'flex'; // Повернути початковий екран
+            document.querySelector('.interactive-start').style.display = 'flex';
         }
-    
+
         function showLoading() {
             document.getElementById('loading-overlay').style.display = 'flex';
             setTimeout(() => {
                 document.getElementById('loading-overlay').style.display = 'none';
             }, 1000);
         }
-    
+
         function showBalance() {
             alert('Ваш баланс: 1000 у.о.');
         }
-    
+
         function openDeposit() {
             alert('Відкриття депозиту успішно виконано.');
         }
-    
+
         function contactConsultant() {
-            alert('Зв\'язок із консультантом встановлено. Будь ласка, очікуйте.');
+            alert('Зв\'язок із консультантом встановлено.');
         }
-    
+
         function showFAQ(question) {
             alert(question);
         }
-    
+
         function sendToAI() {
             const question = document.getElementById('chat-input').value;
             document.getElementById('chat-response').innerText = `Відповідь на ваше питання: ${question}`;
         }
-    
+
         function findClient() {
             alert('Інформація про клієнта знайдена.');
         }
     </script>
-    
 </body>
 </html>
